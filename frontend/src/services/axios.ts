@@ -1,5 +1,7 @@
-import axios from 'axios'
+import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'https://api-temp.vercel.app/api/bredi-team',
+  baseURL: 'https://localhost:4000',
 });
+
+api.defaults.withCredentials = true;
