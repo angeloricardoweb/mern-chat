@@ -1,30 +1,22 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { GlobalContextProvider } from './context/GlobalContextProvider';
 import { BoxCookies } from '@components/Partials/BoxCookies';
-import { Footer } from '@components/Footer';
-import Home from '@pages/Home';
-import { FormExample } from '@pages/Form';
-import PageNotFound from '@pages/404';
-import Presentation from '@pages/Presentation';
 import Modals from '@components/Modals';
-import { Register } from '@pages/Register';
+import { UserContextProvider } from '@context/UserContextProvider';
+import { Routes } from './routes/Routes';
 
 function App() {
   return (
     <GlobalContextProvider>
-      <BrowserRouter>
-        <Routes>
-          {/* remove this route to start */}
-          <Route path="/" element={<Register />} />
-          {/* <Route path="/" element={<Home />} /> */}
-          <Route path="/contato" element={<FormExample />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-        <BoxCookies />
-        <Modals />
-        <ToasterComponent />
-      </BrowserRouter>
+      <UserContextProvider>
+        <BrowserRouter>
+          <Routes />
+          <BoxCookies />
+          <Modals />
+          <ToasterComponent />
+        </BrowserRouter>
+      </UserContextProvider>
     </GlobalContextProvider>
   );
 }

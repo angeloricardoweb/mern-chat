@@ -1,11 +1,13 @@
 import { api } from '@services/axios';
 import userStore from '@stores/userStore';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function Register() {
   const { setUsername, setId } = userStore();
   const [nickname, setNickname] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const navigate = useNavigate(); // navigate('/')
 
   async function register(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -14,7 +16,7 @@ export function Register() {
         username: nickname,
         password,
       });
-      console.log(response);
+      navigate('/contato');
     } catch (error: any) {
       console.log(error);
     }

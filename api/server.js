@@ -27,6 +27,16 @@ mongoose
     console.log(err);
   });
 
+app.get("/profile", async (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.userId);
+    return res.json({ username: user.username, id: user._id });
+  } catch (error) {
+    return res.status(401).json({ message: "Not authorized" });
+  }
+});
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
