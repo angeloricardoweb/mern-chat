@@ -3,7 +3,10 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
+const bcrypt = require("bcryptjs");
 const { User } = require("./src/models/User");
+
+const bcryptSalt = bcrypt.genSaltSync(10);
 
 dotenv.config();
 
@@ -27,6 +30,29 @@ mongoose
     console.log(err);
   });
 
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  const user = await User.findOne({ username });
+  if (!user) {
+    return res.status(404).json({ message: "User does not exist" });
+  } else {
+    const passwordValid = bcrypt.compareSync(password, user.password);
+    if (!passwordValid) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    } else {
+      jwt.sign({ userId: user._id }, process.env.JWT_SECRET, (err, token) => {
+        if (err) {
+          return res.status(500).json({ message: "Something went wrong" });
+        }
+        return res
+          .cookie("token", token)
+          .status(200)
+          .json({ token, username: user.username, id: user._id });
+      });
+    }
+  }
+});
+
 app.get("/profile", async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
   try {
@@ -49,7 +75,7 @@ app.post("/register", async (req, res) => {
   try {
     const createdUser = await User.create({
       username,
-      password,
+      password: bcrypt.hashSync(password, bcryptSalt),
     });
 
     jwt.sign(

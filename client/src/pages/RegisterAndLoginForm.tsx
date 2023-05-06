@@ -20,9 +20,10 @@ export function RegisterAndLoginForm() {
         username: nickname,
         password,
       });
+
       navigate('/contato');
     } catch (error: any) {
-      console.log(error);
+      console.log(error.response.data);
     }
   }
   return (
