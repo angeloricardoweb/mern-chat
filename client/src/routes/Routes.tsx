@@ -1,5 +1,6 @@
 import { useUserContext } from '@context/UserContextProvider';
 import PageNotFound from '@pages/404';
+import { Chat } from '@pages/Chat';
 import { FormExample } from '@pages/Form';
 import { RegisterAndLoginForm } from '@pages/RegisterAndLoginForm';
 import React, { useEffect } from 'react';
@@ -25,7 +26,7 @@ export function Routes() {
       {/* remove this route to start */}
       <Route path="/" element={<RegisterAndLoginForm />} />
       {/* <Route path="/" element={<Home />} /> */}
-      <Route path="/contato" element={<FormExample />} />
+      <Route path="/chat" element={<Chat />} />
       <Route path="*" element={<PageNotFound />} />
     </Routing>
   );

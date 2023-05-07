@@ -21,15 +21,15 @@ export function RegisterAndLoginForm() {
         password,
       });
 
-      navigate('/contato');
+      navigate('/chat');
     } catch (error: any) {
       console.log(error.response.data);
     }
   }
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-blue-50">
-      <h1 className="text-xl font-bold flex items-center gap-1">
-        <Icon icon="mdi:chat-processing"/>
+      <h1 className="flex items-center gap-1 text-xl font-bold">
+        <Icon icon="mdi:chat-processing" />
         MERN CHAT
       </h1>
       <form className="my-5 w-64" onSubmit={register}>
@@ -41,7 +41,7 @@ export function RegisterAndLoginForm() {
           onChange={(e) => setNickname(e.target.value)}
         />
         <input
-          type="text"
+          type="password"
           className="mb-2 block w-full rounded-md border p-2"
           placeholder="password"
           value={password}
