@@ -112,6 +112,17 @@ wss.on("connection", (connection, req) => {
       connection.username = username;
     });
   }
+
+  [...wss.clients].forEach((client) => {
+    client.send(
+      JSON.stringify({
+        online: [...wss.clients].map((client) => ({
+          userId: client.userId,
+          username: client.username,
+        })),
+      })
+    );
+  });
 });
 
 function returnTokenFromCookiesString(cookies) {
