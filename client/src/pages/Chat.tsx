@@ -1,3 +1,4 @@
+import { Avatar } from '@components/Partials/Avatar';
 import { Icon } from '@iconify/react';
 import { useEffect, useState } from 'react';
 
@@ -35,10 +36,13 @@ export function Chat() {
   return (
     <div className="flex h-screen w-full">
       <div className="w-1/3 bg-white p-2">
-        <div className="text-center font-bold text-blue-700 border-b">MernChat</div>
+        <div className="border-b text-center font-bold text-blue-700">
+          MernChat
+        </div>
         <div>
           {Object.keys(onlinePeople).map((userId) => (
             <div key={userId} className="flex items-center gap-2 border-b p-2">
+              <Avatar username={onlinePeople[userId]} />
               {onlinePeople[userId]}
             </div>
           ))}
