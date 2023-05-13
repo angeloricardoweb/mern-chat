@@ -97,8 +97,8 @@ app.post("/register", async (req, res) => {
   }
 });
 
-const server = app.listen(4000, () => {
-  console.log("server is running on port 4000");
+const server = app.listen(4002, () => {
+  console.log("server is running on port 4002");
 });
 
 const wss = new ws.WebSocketServer({ server });
